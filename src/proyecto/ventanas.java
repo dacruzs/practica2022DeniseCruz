@@ -124,7 +124,7 @@ public class ventanas extends JFrame {
     public void CrearUsuario(){
       this.getContentPane().add(panelCrearUsuario);
       panelCrearUsuario.setLayout(null);
-      this.setSize(500, 400);
+      this.setSize(500, 430);
       this.setTitle("Registro de usuario");
       panelInicioSesion.setVisible(false);
       
@@ -186,6 +186,23 @@ public class ventanas extends JFrame {
           }
       };
       btnRegistrar.addActionListener(registro);
+      
+      JButton btnRegresar = new JButton("Regresar");
+      btnRegresar.setBounds(150, 320, 175, 35);
+      panelCrearUsuario.add(btnRegresar);
+      ActionListener regresarInicio = new ActionListener(){
+          @Override
+          public void actionPerformed(ActionEvent ae) {
+            panelInicioSesion.setVisible(true);
+            panelCrearUsuario.setVisible(false); 
+          }
+      };
+      btnRegresar.addActionListener(regresarInicio);
+    }
+    
+    public void volverInicio(){
+        this.setTitle("Sistema administrativo de clientes y recursos");
+        this.setSize(450, 350);
     }
     
     public void guardarUsuario(String NombreUsuario, String Nombre, String contra){
@@ -201,6 +218,6 @@ public class ventanas extends JFrame {
         usuSistema[posicion].NombreUsuario = NombreUsuario;
         usuSistema[posicion].Nombre = Nombre;
         usuSistema[posicion].contra = contra;
-        JOptionPane.showMessageDialog(null, "usurio registrados");
+        JOptionPane.showMessageDialog(null, "usurio registrado");
     }
 }
