@@ -9,7 +9,7 @@ public class Proyecto {
        cuadro.setVisible(true);
        cuadro.setTitle("Sistema administrativo de clientes y recursos");
        cuadro.setSize(450, 350);
-       cuadro.setLocationRelativeTo(null);
+       //cuadro.setLocationRelativeTo(null);
        cuadro.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
