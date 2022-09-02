@@ -142,12 +142,12 @@ public class ventanas extends JFrame {
         panelControl = new JPanel();
         this.getContentPane().add(panelControl);
         panelControl.setLayout(null);
-        this.setSize(500, 400);
+        this.setSize(450, 300);
         this.setTitle("Control principal");
         panelInicioSesion.setVisible(false);
 
         JButton btnAdminCli = new JButton("Administración de clientes");
-        btnAdminCli.setBounds(120, 20, 250, 40);
+        btnAdminCli.setBounds(90, 30, 250, 40);
         panelControl.add(btnAdminCli);
         ActionListener AdministrarCli = new ActionListener() {
             @Override
@@ -159,12 +159,9 @@ public class ventanas extends JFrame {
         btnAdminCli.addActionListener(AdministrarCli);
 
         JButton btnAdminPro = new JButton("Administración de productos");
-        btnAdminPro.setBounds(120, 90, 250, 40);
+        btnAdminPro.setBounds(90, 100, 250, 40);
         panelControl.add(btnAdminPro);
 
-        JButton btnReportes = new JButton("Administración de clientes");
-        btnReportes.setBounds(120, 160, 250, 40);
-        panelControl.add(btnReportes);
     }
 
     public void CrearUsuario() {
@@ -334,10 +331,14 @@ public class ventanas extends JFrame {
                 JFileChooser abrirVentana = new JFileChooser();
                 abrirVentana.showOpenDialog(null);
                 archivoSeleccionado = abrirVentana.getSelectedFile();
-                System.out.println("La ubicación del archivo es " + archivoSeleccionado.getPath());
+                //System.out.println("La ubicación del archivo es " + archivoSeleccionado.getPath());
+                if(archivoSeleccionado == null){
+                    JOptionPane.showMessageDialog(null, "No se selecciono ningun archivo");
+                }else{
                 leerArchivoCSV(archivoSeleccionado.getPath());
                 panelcontrolCli.setVisible(false);
                 panelcontrolClientes();
+                }
             }
         };
 
@@ -350,39 +351,57 @@ public class ventanas extends JFrame {
         ActionListener crearHTML = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                ordenar();
                 crearReporte();
             }
         };
         btnReporte.addActionListener(crearHTML);
+        
+        //boton de regresar
+        JButton btnRegresar = new JButton("Regresar a control principal");
+        btnRegresar.setBounds(400, 125, 200, 30);
+        panelcontrolCli.add(btnRegresar);
+        ActionListener regresarInicio = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panelControl.setVisible(true);
+                panelcontrolCli.setVisible(false);
+                volverInicio();
+            }
+        };
+        btnRegresar.addActionListener(regresarInicio);
 
-        //Regresar al control
-//            JButton btnRegresarControl = new JButton("Regresar");
-//        btnRegresarControl.setBounds(400, 25, 200, 30);
-//        panelcontrolCli.add(btnRegresarControl);
-//        ActionListener regresarControl = new ActionListener() {
-//            @Override
-//           public void actionPerformed(ActionEvent ae) {
-//                panelControl.setVisible(true);
-//                panelcontrolCli.setVisible(false);
-//                volverPanelControl();
-//            }
-//        };
-//        btnRegresarControl.addActionListener(regresarControl);
-//    }
-//
-//    public void volverPanelControl() {
-//        this.setTitle("Control principal");
-//        this.setSize(500, 400);
-//    }
+    }
+    
+    public void ordenar(){
+        cliente auxiliar;
+        for(int i=0; i<99; i++){
+            for(int a=0; a<99; a++){
+                if(clientes[a+1] == null){
+                    break;
+                }else{
+                    if(clientes[a].edad> clientes[a+1].edad){
+                        auxiliar = clientes[a+1];
+                        clientes[a+1] = clientes[a];
+                        clientes[a] = auxiliar;
+                    }
+                }
+            }
+        }
     }
     
     public void crearReporte(){
         try{
+            PrintWriter escribirCss = new PrintWriter("reportes/estilo.css", "UTF-8");
+            
+            escribirCss.close();
+            
             PrintWriter escribir = new PrintWriter("reportes/reporte.html", "UTF-8");
             escribir.println("<!doctype html>");
             escribir.println("<html>");
             escribir.println("<head>");
             escribir.println("<title>Reporte de clientes</title>");
+            escribir.println("<link rel=\"stylesheet\" href=\"estilo.css\">");
             escribir.println("</head>");
             escribir.println("<body>");
             escribir.println("<h1>Listado de clientes</h1>");
