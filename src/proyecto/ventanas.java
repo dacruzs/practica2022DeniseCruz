@@ -1,5 +1,7 @@
 package proyecto;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -34,12 +36,16 @@ public class ventanas extends JFrame {
     cliente clientes[] = new cliente[100];
     int controlCli = 2;
     JPanel panelcontrolCli;
+    producto productos[] = new producto[100];
+    int controlPro = 2;
+    JPanel panelControlProducto;
 
     //metodo constructor
     public ventanas() {
         objetos();
         crearAdmin();
         crearClientes();
+        crearPro();
     }
 
     public void crearAdmin() {
@@ -63,20 +69,35 @@ public class ventanas extends JFrame {
         clientes[1].nit = 850;
     }
 
+    public void crearPro() {
+        productos[0] = new producto();
+        productos[0].nombrePro = "zapato casual";
+        productos[0].precio = 250;
+        productos[0].cantidad = 50;
+
+        productos[1] = new producto();
+        productos[1].nombrePro = "zapato deportivo";
+        productos[1].precio = 230;
+        productos[1].cantidad = 25;
+    }
+
     public void objetos() {
         panelInicioSesion = new JPanel();
         this.getContentPane().add(panelInicioSesion);
         panelInicioSesion.setLayout(null);
 
         JLabel lblLogin = new JLabel("Login");
+        lblLogin.setFont(new Font("Constantia", Font.BOLD, 15));
         lblLogin.setBounds(30, 10, 100, 20);
         panelInicioSesion.add(lblLogin);
 
         JLabel lblUsuario = new JLabel("Usuario");
+        lblUsuario.setFont(new Font("Constantia", Font.BOLD, 13));
         lblUsuario.setBounds(60, 50, 100, 20);
         panelInicioSesion.add(lblUsuario);
 
         JLabel lblContra = new JLabel("Contraseña");
+        lblContra.setFont(new Font("Constantia", Font.BOLD, 13));
         lblContra.setBounds(60, 100, 100, 20);
         panelInicioSesion.add(lblContra);
 
@@ -89,7 +110,9 @@ public class ventanas extends JFrame {
         panelInicioSesion.add(txtContra);
 
         JButton btnIngresar = new JButton("Ingresar");
-        btnIngresar.setBounds(140, 155, 170, 30);
+        btnIngresar.setBackground(new Color(116, 236, 202));
+        btnIngresar.setFont(new Font("Garamond", Font.BOLD, 15));
+        btnIngresar.setBounds(150, 150, 200, 30);
         panelInicioSesion.add(btnIngresar);
         ActionListener ingresar = new ActionListener() {
             @Override
@@ -106,7 +129,9 @@ public class ventanas extends JFrame {
         btnIngresar.addActionListener(ingresar);
 
         JButton btnCrearUsu = new JButton("Registrarse");
-        btnCrearUsu.setBounds(140, 200, 170, 30);
+        btnCrearUsu.setBackground(new Color(116, 236, 202));
+        btnCrearUsu.setFont(new Font("Garamond", Font.BOLD, 15));
+        btnCrearUsu.setBounds(150, 200, 200, 30);
         panelInicioSesion.add(btnCrearUsu);
         ActionListener crearUsuario = new ActionListener() {
             @Override
@@ -131,7 +156,6 @@ public class ventanas extends JFrame {
                     encontrado = false;
                 }
             }
-
         }
         if (encontrado == false) {
             JOptionPane.showMessageDialog(null, "Datos incorrectos");
@@ -142,12 +166,14 @@ public class ventanas extends JFrame {
         panelControl = new JPanel();
         this.getContentPane().add(panelControl);
         panelControl.setLayout(null);
-        this.setSize(450, 300);
+        this.setSize(410, 300);
         this.setTitle("Control principal");
         panelInicioSesion.setVisible(false);
 
         JButton btnAdminCli = new JButton("Administración de clientes");
-        btnAdminCli.setBounds(90, 30, 250, 40);
+        btnAdminCli.setBackground(new Color(116, 236, 155));
+        btnAdminCli.setFont(new Font("Garamond", Font.BOLD, 18));
+        btnAdminCli.setBounds(50, 50, 300, 40);
         panelControl.add(btnAdminCli);
         ActionListener AdministrarCli = new ActionListener() {
             @Override
@@ -159,9 +185,18 @@ public class ventanas extends JFrame {
         btnAdminCli.addActionListener(AdministrarCli);
 
         JButton btnAdminPro = new JButton("Administración de productos");
-        btnAdminPro.setBounds(90, 100, 250, 40);
+        btnAdminPro.setBackground(new Color(243, 245, 96));
+        btnAdminPro.setFont(new Font("Garamond", Font.BOLD, 18));
+        btnAdminPro.setBounds(50, 140, 300, 40);
         panelControl.add(btnAdminPro);
-
+        ActionListener AdministrarPro = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panelcontrolPro();
+                panelControlProducto.setVisible(true);
+            }
+        };
+        btnAdminPro.addActionListener(AdministrarPro);
     }
 
     public void CrearUsuario() {
@@ -173,43 +208,50 @@ public class ventanas extends JFrame {
         panelInicioSesion.setVisible(false);
 
         JLabel lblRegistro = new JLabel("Registro de usuario");
+        lblRegistro.setFont(new Font("Constantia", Font.BOLD, 15));
         lblRegistro.setBounds(30, 10, 150, 20);
         panelCrearUsuario.add(lblRegistro);
 
         JLabel lblUsuario = new JLabel("Usuario");
+        lblUsuario.setFont(new Font("Constantia", Font.BOLD, 13));
         lblUsuario.setBounds(60, 50, 100, 20);
         panelCrearUsuario.add(lblUsuario);
 
         JLabel lblNombre = new JLabel("Nombre");
+        lblNombre.setFont(new Font("Constantia", Font.BOLD, 13));
         lblNombre.setBounds(60, 100, 100, 20);
         panelCrearUsuario.add(lblNombre);
 
         JLabel lblContra = new JLabel("Contraseña");
+        lblContra.setFont(new Font("Constantia", Font.BOLD, 13));
         lblContra.setBounds(60, 150, 100, 20);
         panelCrearUsuario.add(lblContra);
 
         JLabel lblConfirmar = new JLabel("Confirmar contraseña");
-        lblConfirmar.setBounds(60, 200, 130, 20);
+        lblConfirmar.setFont(new Font("Constantia", Font.BOLD, 13));
+        lblConfirmar.setBounds(60, 200, 140, 20);
         panelCrearUsuario.add(lblConfirmar);
 
         JTextField txtUsuario = new JTextField();
-        txtUsuario.setBounds(200, 50, 135, 25);
+        txtUsuario.setBounds(220, 50, 160, 25);
         panelCrearUsuario.add(txtUsuario);
 
         JTextField txtNombre = new JTextField();
-        txtNombre.setBounds(200, 100, 135, 25);
+        txtNombre.setBounds(220, 100, 160, 25);
         panelCrearUsuario.add(txtNombre);
 
         JTextField txtContra = new JTextField();
-        txtContra.setBounds(200, 150, 135, 25);
+        txtContra.setBounds(220, 150, 160, 25);
         panelCrearUsuario.add(txtContra);
 
         JTextField txtConfirmar = new JTextField();
-        txtConfirmar.setBounds(200, 200, 135, 25);
+        txtConfirmar.setBounds(220, 200, 160, 25);
         panelCrearUsuario.add(txtConfirmar);
 
         JButton btnRegistrar = new JButton("Registrar");
-        btnRegistrar.setBounds(150, 260, 175, 35);
+        btnRegistrar.setBackground(new Color(116, 236, 202));
+        btnRegistrar.setFont(new Font("Garamond", Font.BOLD, 18));
+        btnRegistrar.setBounds(60, 270, 165, 30);
         panelCrearUsuario.add(btnRegistrar);
         ActionListener registro = new ActionListener() {
             @Override
@@ -232,7 +274,9 @@ public class ventanas extends JFrame {
         btnRegistrar.addActionListener(registro);
 
         JButton btnRegresar = new JButton("Regresar");
-        btnRegresar.setBounds(150, 320, 175, 35);
+        btnRegresar.setBackground(new Color(116, 236, 202));
+        btnRegresar.setFont(new Font("Garamond", Font.BOLD, 18));
+        btnRegresar.setBounds(230, 270, 165, 30);
         panelCrearUsuario.add(btnRegresar);
         ActionListener regresarInicio = new ActionListener() {
             @Override
@@ -309,7 +353,7 @@ public class ventanas extends JFrame {
         panelCircular.setBounds(15, 200, 300, 300);
         panelcontrolCli.add(panelCircular);
 
-        //grafico de barras
+        //grafico de columnas
         DefaultCategoryDataset datos2 = new DefaultCategoryDataset();
         datos2.addValue(rango18a30(), "18-30", "Edad");
         datos2.addValue(rango31a45(), "31-45", "Edad");
@@ -322,6 +366,8 @@ public class ventanas extends JFrame {
 
         //boton de cargar archivo csv
         JButton btnCargarArchivo = new JButton("Buscar archivo CSV");
+        btnCargarArchivo.setBackground(new Color(116, 236, 155));
+        btnCargarArchivo.setFont(new Font("Garamond", Font.BOLD, 15));
         btnCargarArchivo.setBounds(400, 15, 200, 30);
         panelcontrolCli.add(btnCargarArchivo);
         ActionListener buscarArchivo = new ActionListener() {
@@ -332,12 +378,12 @@ public class ventanas extends JFrame {
                 abrirVentana.showOpenDialog(null);
                 archivoSeleccionado = abrirVentana.getSelectedFile();
                 //System.out.println("La ubicación del archivo es " + archivoSeleccionado.getPath());
-                if(archivoSeleccionado == null){
+                if (archivoSeleccionado == null) {
                     JOptionPane.showMessageDialog(null, "No se selecciono ningun archivo");
-                }else{
-                leerArchivoCSV(archivoSeleccionado.getPath());
-                panelcontrolCli.setVisible(false);
-                panelcontrolClientes();
+                } else {
+                    leerArchivoCSV(archivoSeleccionado.getPath());
+                    panelcontrolCli.setVisible(false);
+                    panelcontrolClientes();
                 }
             }
         };
@@ -346,6 +392,8 @@ public class ventanas extends JFrame {
 
         //boton de crear reporte 
         JButton btnReporte = new JButton("Generar reporte HTML");
+        btnReporte.setBackground(new Color(116, 236, 155));
+        btnReporte.setFont(new Font("Garamond", Font.BOLD, 15));
         btnReporte.setBounds(400, 70, 200, 30);
         panelcontrolCli.add(btnReporte);
         ActionListener crearHTML = new ActionListener() {
@@ -356,9 +404,11 @@ public class ventanas extends JFrame {
             }
         };
         btnReporte.addActionListener(crearHTML);
-        
+
         //boton de regresar
         JButton btnRegresar = new JButton("Regresar a control principal");
+        btnRegresar.setBackground(new Color(116, 236, 155));
+        btnRegresar.setFont(new Font("Garamond", Font.BOLD, 15));
         btnRegresar.setBounds(400, 125, 200, 30);
         panelcontrolCli.add(btnRegresar);
         ActionListener regresarInicio = new ActionListener() {
@@ -372,30 +422,37 @@ public class ventanas extends JFrame {
         btnRegresar.addActionListener(regresarInicio);
 
     }
-    
-    public void ordenar(){
+
+    public void ordenar() {
         cliente auxiliar;
-        for(int i=0; i<99; i++){
-            for(int a=0; a<99; a++){
-                if(clientes[a+1] == null){
+        for (int i = 0; i < 99; i++) {
+            for (int a = 0; a < 99; a++) {
+                if (clientes[a + 1] == null) {
                     break;
-                }else{
-                    if(clientes[a].edad> clientes[a+1].edad){
-                        auxiliar = clientes[a+1];
-                        clientes[a+1] = clientes[a];
+                } else {
+                    if (clientes[a].edad > clientes[a + 1].edad) {
+                        auxiliar = clientes[a + 1];
+                        clientes[a + 1] = clientes[a];
                         clientes[a] = auxiliar;
                     }
                 }
             }
         }
     }
-    
-    public void crearReporte(){
-        try{
+
+    public void crearReporte() {
+        try {
             PrintWriter escribirCss = new PrintWriter("reportes/estilo.css", "UTF-8");
-            
+            escribirCss.print("html {   font-size: 20px; font-family: 'Antiqua', sans-serif; }");
+	    escribirCss.print("h1 { font-size: 60px; text-align: center; }");
+	    escribirCss.print("p, li {   font-size: 16px;   line-height: 2;   letter-spacing: 1px; }");
+	    escribirCss.print("table { table-layout: fixed;   width:250px;}   td{border: 1px solid black; width: 190px;  word-wrap: break-word}");
+	    escribirCss.print("html { background-color: #B8FF83; }");
+	    escribirCss.print("body { width: 970px; margin: 0 auto; background-color: #83ACFF; padding: 0 20px 20px 20px; border: 5px solid black; }");
+	    escribirCss.print("h1 { margin: 0; padding: 20px 0; color: #00539F; text-shadow: 3px 3px 1px black; }");
+
             escribirCss.close();
-            
+
             PrintWriter escribir = new PrintWriter("reportes/reporte.html", "UTF-8");
             escribir.println("<!doctype html>");
             escribir.println("<html>");
@@ -406,25 +463,25 @@ public class ventanas extends JFrame {
             escribir.println("<body>");
             escribir.println("<h1>Listado de clientes</h1>");
             escribir.println("<br>");
-            
+
             escribir.println("<table border = 1>");
             escribir.println("<tr>");
             escribir.println("<td>NIT</td> <td>Nombre</td> <td>Edad</td> <td>Genero</td>");
             escribir.println("</tr>");
-                
-            for(int i = 0; i<99; i++){
-                if(clientes[0] != null){
+
+            for (int i = 0; i < 99; i++) {
+                if (clientes[i] != null) {
                     escribir.println("<tr>");
                     escribir.println("<td>" + clientes[i].nit + "</td><td>" + clientes[i].nombre + "</td><td>" + clientes[i].edad + "</td><td>" + clientes[i].genero);
                     escribir.println("</tr>");
-                } 
+                }
             }
             escribir.println("</table>");
             escribir.println("</body>");
             escribir.println("</html>");
             escribir.close();
             JOptionPane.showMessageDialog(null, "Reporte creado con exito, se encuentre en carpeta Reportes");
-        }catch(IOException error){
+        } catch (IOException error) {
             JOptionPane.showMessageDialog(null, "No se pudo crear el reporte");
         }
     }
@@ -524,4 +581,230 @@ public class ventanas extends JFrame {
             JOptionPane.showMessageDialog(null, "No se pudo abrir el archivo");
         }
     }
+
+    public void panelcontrolPro() {
+        panelControlProducto = new JPanel();
+        this.getContentPane().add(panelControlProducto);
+        panelControlProducto.setLayout(null);
+        this.setSize(725, 450);
+        this.setTitle("Administración Productos");
+        panelControl.setVisible(false);
+
+        DefaultTableModel datosPro = new DefaultTableModel();
+        datosPro.addColumn("Nombre Producto");
+        datosPro.addColumn("Precio");
+        datosPro.addColumn("Cantidad");
+
+        for (int i = 0; i < 100; i++) {
+            if (productos[i] != null) {
+                String filaPro[] = {productos[i].nombrePro, Double.toString(productos[i].precio), String.valueOf(productos[i].cantidad)};
+                datosPro.addRow(filaPro);
+            }
+        }
+
+        JTable tablaProductos = new JTable(datosPro);
+        JScrollPane barraTablaPro = new JScrollPane(tablaProductos);
+        barraTablaPro.setBounds(10, 10, 300, 250);
+        panelControlProducto.add(barraTablaPro);
+        
+        //creacion de grafica de columnas productos 
+        DefaultCategoryDataset datos2 = new DefaultCategoryDataset();
+        datos2.addValue(rango50a100(), "50-100", "Precio");
+        datos2.addValue(rango101a500(), "101-500", "Precio");
+        datos2.addValue(rango500(), "Mayor a 500", "Precio");
+
+        JFreeChart graficoColumnas2 = ChartFactory.createBarChart("Rango de precios", "Precio", "Escala", datos2, PlotOrientation.VERTICAL, true, true, false);
+        ChartPanel panelColumnas2 = new ChartPanel(graficoColumnas2);
+        panelColumnas2.setBounds(350, 10, 330, 250);
+        panelControlProducto.add(panelColumnas2);
+
+        JButton btnCargarArchivo2 = new JButton("Buscar archivo CSV");
+        btnCargarArchivo2.setBackground(new Color(243, 245, 96));
+        btnCargarArchivo2.setFont(new Font("Garamond", Font.BOLD, 15));
+        btnCargarArchivo2.setBounds(10, 300, 200, 30);
+        panelControlProducto.add(btnCargarArchivo2);
+        ActionListener buscarArchivo2 = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                File archivoSeleccionado2;
+                JFileChooser abrirVentana2 = new JFileChooser();
+                abrirVentana2.showOpenDialog(null);
+                archivoSeleccionado2 = abrirVentana2.getSelectedFile();
+                if (archivoSeleccionado2 == null) {
+                    JOptionPane.showMessageDialog(null, "No se selecciono ningun archivo");
+                } else {
+                    leerArchivo2CSV(archivoSeleccionado2.getPath());
+                    panelControlProducto.setVisible(false);
+                    panelcontrolPro();
+                }
+            }
+        };
+        btnCargarArchivo2.addActionListener(buscarArchivo2);
+        
+        JButton btnReporte2 = new JButton("Generar reporte HTML");
+        btnReporte2.setBackground(new Color(243, 245, 96));
+        btnReporte2.setFont(new Font("Garamond", Font.BOLD, 15));
+        btnReporte2.setBounds(250, 300, 200, 30);
+        panelControlProducto.add(btnReporte2);
+        ActionListener crearHTML = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                ordenar2();
+                crearReporte2();
+            }
+        };
+        btnReporte2.addActionListener(crearHTML);
+        
+        JButton btnRegresar2 = new JButton("Regresar a control principal");
+        btnRegresar2.setBackground(new Color(243, 245, 96));
+        btnRegresar2.setFont(new Font("Garamond", Font.BOLD, 15));
+        btnRegresar2.setBounds(490, 300, 210, 30);
+        panelControlProducto.add(btnRegresar2);
+        ActionListener regresarInicio = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panelControl.setVisible(true);
+                panelControlProducto.setVisible(false);
+                volverInicio();
+            }
+        };
+        btnRegresar2.addActionListener(regresarInicio);
+        
+    }
+
+    public void ordenar2() {
+        producto auxiliar;
+        for (int i = 0; i < 99; i++) {
+            for (int a = 0; a < 99; a++) {
+                if (productos[a + 1] == null) {
+                    break;
+                } else {
+                    if (productos[a].precio < productos[a + 1].precio) {
+                        auxiliar = productos[a + 1];
+                        productos[a + 1] = productos[a];
+                        productos[a] = auxiliar;
+                    }
+                }
+            }
+        }
+    }
+    
+    public void crearReporte2() {
+        try {
+            PrintWriter escribirCss = new PrintWriter("reportes2/estilo.css", "UTF-8");
+            escribirCss.print("html {   font-size: 20px; font-family: 'Antiqua', sans-serif; }");
+	    escribirCss.print("h1 { font-size: 60px; text-align: center; }");
+	    escribirCss.print("p, li {   font-size: 16px;   line-height: 2;   letter-spacing: 1px; }");
+	    escribirCss.print("table { table-layout: fixed;   width:250px;}   td{border: 1px solid black; width: 190px;  word-wrap: break-word}");
+	    escribirCss.print("html { background-color: #B8FF83; }");
+	    escribirCss.print("body { width: 970px; margin: 0 auto; background-color: #83ACFF; padding: 0 20px 20px 20px; border: 5px solid black; }");
+	    escribirCss.print("h1 { margin: 0; padding: 20px 0; color: #00539F; text-shadow: 3px 3px 1px black; }");
+
+            escribirCss.close();
+
+            PrintWriter escribir = new PrintWriter("reportes2/reporte2.html", "UTF-8");
+            escribir.println("<!doctype html>");
+            escribir.println("<html>");
+            escribir.println("<head>");
+            escribir.println("<title>Reporte de productos</title>");
+            escribir.println("<link rel=\"stylesheet\" href=\"estilo.css\">");
+            escribir.println("</head>");
+            escribir.println("<body>");
+            escribir.println("<h1>Listado de productos</h1>");
+            escribir.println("<br>");
+
+            escribir.println("<table border = 1>");
+            escribir.println("<tr>");
+            escribir.println("<td>Cantidad</td> <td>Nombre Producto</td> <td>Precio</td>");
+            escribir.println("</tr>");
+
+            for (int i = 0; i < 99; i++) {
+                if (productos[i] != null) {
+                    escribir.println("<tr>");
+                    escribir.println("<td>" + productos[i].cantidad + "</td><td>" + productos[i].nombrePro + "</td><td>" + productos[i].precio);
+                    escribir.println("</tr>");
+                }
+            }
+            escribir.println("</table>");
+            escribir.println("</body>");
+            escribir.println("</html>");
+            escribir.close();
+            JOptionPane.showMessageDialog(null, "Reporte creado con exito, se encuentre en carpeta Reportes2");
+        } catch (IOException error) {
+            JOptionPane.showMessageDialog(null, "No se pudo crear el reporte");
+        }
+    }
+    
+    
+    public int rango50a100() {
+        int total = 0;
+        for (int i = 0; i < 100; i++) {
+            if (productos[i] != null) {
+                if (productos[i].precio >= 50 && productos[i].precio <= 100) {
+                    total++;
+                }
+            }
+        }
+        return total;
+    }
+
+    public int rango101a500() {
+        int total = 0;
+        for (int i = 0; i < 100; i++) {
+            if (productos[i] != null) {
+                if (productos[i].precio >= 101 && productos[i].precio <= 500) {
+                    total++;
+                }
+            }
+        }
+        return total;
+    }
+
+    public int rango500() {
+        int total = 0;
+        for (int i = 0; i < 100; i++) {
+            if (productos[i] != null) {
+                if (productos[i].precio > 500) {
+                    total++;
+                }
+            }
+        }
+        return total;
+    }
+    
+    public void leerArchivo2CSV(String ruta2) {
+        try {
+            BufferedReader archivoTemporal2 = new BufferedReader(new FileReader(ruta2));
+            String lineaLeida2 = "";
+            while (lineaLeida2 != null) {
+                lineaLeida2 = archivoTemporal2.readLine();
+                if (lineaLeida2 != null) {
+                    String datosSeparados2[] = lineaLeida2.split(",");
+                    
+                    int posicion = 0;
+                    if (controlPro < 100) {
+                        for (int i = 0; i < 99; i++) {
+                            if (productos[i] == null) {
+                                posicion = i;
+                                break;
+                            }
+                        }
+                        productos[posicion] = new producto();
+                        productos[posicion].nombrePro = datosSeparados2[0];
+                        productos[posicion].precio = Float.parseFloat(datosSeparados2[1]);
+                        productos[posicion].cantidad = Integer.parseInt(datosSeparados2[2]);
+                        controlPro++;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se pueden registrar más productos");
+                    }
+
+                }
+            }
+            JOptionPane.showMessageDialog(null, "productos registrados, total de productos " + controlPro);
+            archivoTemporal2.close();
+        } catch (IOException error2) {
+            JOptionPane.showMessageDialog(null, "No se pudo abrir el archivo");
+        }
+    }
+    
 }
